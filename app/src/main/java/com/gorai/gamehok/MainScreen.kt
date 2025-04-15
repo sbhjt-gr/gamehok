@@ -1,5 +1,7 @@
 package com.gorai.gamehok
 
+import androidx.compose.animation.*
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -19,7 +21,7 @@ sealed class Screen {
     data class TournamentDetails(val tournament: Tournament) : Screen()
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalAnimationApi::class)
 @Composable
 fun MainScreen() {
     var currentScreen by remember { mutableStateOf<Screen>(Screen.Home) }
@@ -88,23 +90,48 @@ fun MainScreen() {
                 .fillMaxSize()
                 .padding(paddingValues)
         ) {
-            when (currentScreen) {
-                Screen.Home -> HomeScreen(
-                    onTournamentClick = { tournament ->
-                        currentScreen = Screen.TournamentDetails(tournament)
+            AnimatedContent(
+                targetState = currentScreen,
+                transitionSpec = {
+                    if (targetState is Screen.TournamentDetails) {
+                        slideInHorizontally(
+                            initialOffsetX = { fullWidth -> fullWidth }, // start from right
+                            animationSpec = tween(300)
+                        ) + fadeIn() with
+                        slideOutHorizontally(
+                            targetOffsetX = { fullWidth -> -fullWidth }, // exit to left
+                            animationSpec = tween(300)
+                        ) + fadeOut()
+                    } else {
+                        slideInHorizontally(
+                            initialOffsetX = { fullWidth -> -fullWidth }, // start from left
+                            animationSpec = tween(300)
+                        ) + fadeIn() with
+                        slideOutHorizontally(
+                            targetOffsetX = { fullWidth -> fullWidth }, // exit to right
+                            animationSpec = tween(300)
+                        ) + fadeOut()
                     }
-                )
-                Screen.TournamentList -> TournamentScreen()
-                Screen.Social -> SocialScreen()
-                Screen.Chat -> ChatScreen()
-                is Screen.TournamentDetails -> {
-                    val tournament = (currentScreen as Screen.TournamentDetails).tournament
-                    TournamentDetailsScreen(
-                        tournament = tournament,
-                        onBackClick = {
-                            currentScreen = Screen.Home
+                }
+            ) { screen ->
+                when (screen) {
+                    Screen.Home -> HomeScreen(
+                        onTournamentClick = { tournament ->
+                            currentScreen = Screen.TournamentDetails(tournament)
                         }
                     )
+                    Screen.TournamentList -> TournamentScreen()
+                    Screen.Social -> SocialScreen()
+                    Screen.Chat -> ChatScreen()
+                    is Screen.TournamentDetails -> {
+                        val tournament = (screen as Screen.TournamentDetails).tournament
+                        TournamentDetailsScreen(
+                            tournament = tournament,
+                            onBackClick = {
+                                currentScreen = Screen.Home
+                            }
+                        )
+                    }
                 }
             }
         }
