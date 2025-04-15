@@ -31,6 +31,14 @@ import com.gorai.gamehok.viewmodel.GamesUiState
 import com.gorai.gamehok.viewmodel.HomeViewModel
 import com.gorai.gamehok.components.TournamentCard
 import com.gorai.gamehok.viewmodel.TournamentsUiState
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
+import com.gorai.gamehok.R
+import kotlinx.coroutines.delay
 
 private val GoldenStart = Color(0xFFFFD700)
 private val GoldenEnd = Color(0xFFB8860B)
@@ -42,14 +50,24 @@ fun HomeScreen(
 ) {
     val gamesUiState by viewModel.gamesUiState.collectAsState()
     val tournamentsUiState by viewModel.tournamentsUiState.collectAsState()
+    val scrollState = rememberScrollState()
 
     Box(modifier = Modifier.fillMaxSize()) {
         Column(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .verticalScroll(scrollState),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            // Premium cards section remains unchanged
             val pagerState = rememberPagerState()
+            
+            LaunchedEffect(pagerState) {
+                while(true) {
+                    delay(2000)
+                    val nextPage = (pagerState.currentPage + 1) % 3
+                    pagerState.animateScrollToPage(nextPage)
+                }
+            }
             
             HorizontalPager(
                 count = 3,
@@ -126,7 +144,7 @@ fun HomeScreen(
                         LazyRow(
                             horizontalArrangement = Arrangement.spacedBy(8.dp)
                         ) {
-                            items((gamesUiState as GamesUiState.Success).games) { game ->
+                            items((gamesUiState as GamesUiState.Success).games) { game -> 
                                 GameCard(
                                     imageRes = game.imagePath.toInt(),
                                     name = game.gameName,
@@ -179,13 +197,83 @@ fun HomeScreen(
                             horizontalArrangement = Arrangement.spacedBy(16.dp),
                             contentPadding = PaddingValues(horizontal = 4.dp)
                         ) {
-                            items((tournamentsUiState as TournamentsUiState.Success).tournaments) { tournament ->
+                            items((tournamentsUiState as TournamentsUiState.Success).tournaments) { tournament -> 
                                 TournamentCard(tournament = tournament)
                             }
                         }
                     }
                 }
             }
+
+            Spacer(modifier = Modifier.height(32.dp))
+
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp)
+            ) {
+                Text(
+                    text = "People to follow",
+                    fontSize = 24.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color.White,
+                    modifier = Modifier.padding(bottom = 14.dp)
+                )
+
+                PersonToFollow(name = "Legend Gamer", imageRes = R.drawable.img505)
+                PersonToFollow(name = "Legend Gamer", imageRes = R.drawable.img24)
+                PersonToFollow(name = "Legend Gamer", imageRes = R.drawable.img501)
+            }
+
+            Spacer(modifier = Modifier.height(32.dp))
+        }
+    }
+}
+
+@Composable
+private fun PersonToFollow(
+    name: String,
+    imageRes: Int
+) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 8.dp),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(12.dp)
+        ) {
+            Image(
+                painter = painterResource(id = imageRes),
+                contentDescription = "Profile picture of $name",
+                contentScale = ContentScale.Crop,
+                modifier = Modifier
+                    .size(40.dp)
+                    .clip(CircleShape)
+            )
+            Text(
+                text = name,
+                fontSize = 16.sp,
+                color = Color.White
+            )
+        }
+
+        Button(
+            onClick = { /* Handle follow click */ },
+            colors = ButtonDefaults.buttonColors(
+                containerColor = Color(0xFF044D2C)
+            ),
+            shape = RoundedCornerShape(8.dp),
+            contentPadding = PaddingValues(horizontal = 24.dp, vertical = 6.dp)
+        ) {
+            Text(
+                text = "Follow",
+                fontSize = 14.sp,
+                color = Color.White
+            )
         }
     }
 }
