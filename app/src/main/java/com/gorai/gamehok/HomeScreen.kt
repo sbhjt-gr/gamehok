@@ -38,15 +38,16 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import com.gorai.gamehok.R
+import com.gorai.gamehok.data.Tournament
 import kotlinx.coroutines.delay
 
 private val GoldenStart = Color(0xFFFFD700)
 private val GoldenEnd = Color(0xFFB8860B)
 
-@OptIn(ExperimentalPagerApi::class)
 @Composable
 fun HomeScreen(
-    viewModel: HomeViewModel = viewModel()
+    viewModel: HomeViewModel = viewModel(),
+    onTournamentClick: (Tournament) -> Unit = {}
 ) {
     val gamesUiState by viewModel.gamesUiState.collectAsState()
     val tournamentsUiState by viewModel.tournamentsUiState.collectAsState()
@@ -198,7 +199,10 @@ fun HomeScreen(
                             contentPadding = PaddingValues(horizontal = 4.dp)
                         ) {
                             items((tournamentsUiState as TournamentsUiState.Success).tournaments) { tournament -> 
-                                TournamentCard(tournament = tournament)
+                                TournamentCard(
+                                    tournament = tournament,
+                                    onTournamentClick = onTournamentClick
+                                )
                             }
                         }
                     }

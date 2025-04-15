@@ -1,61 +1,66 @@
-package com.gorai.gamehok.components
+package com.gorai.gamehok
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.gorai.gamehok.R
 import com.gorai.gamehok.data.Tournament
-import java.text.SimpleDateFormat
-import java.util.*
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TournamentCard(
+fun TournamentDetailsScreen(
     tournament: Tournament,
-    modifier: Modifier = Modifier,
-    onTournamentClick: (Tournament) -> Unit = {}
+    onBackClick: () -> Unit
 ) {
-    Card(
-        modifier = modifier
-            .width(300.dp)
-            .clip(RoundedCornerShape(16.dp))
-            .clickable { onTournamentClick(tournament) },
-        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
-    ) {
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = {},
+                navigationIcon = {
+                    IconButton(onClick = onBackClick) {
+                        Icon(
+                            imageVector = Icons.Default.ArrowBack,
+                            contentDescription = "Back",
+                            tint = Color.White
+                        )
+                    }
+                },
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = Color.Transparent
+                )
+            )
+        }
+    ) { paddingValues ->
         Box(
             modifier = Modifier
-                .fillMaxWidth()
-                .background(
-                    brush = Brush.verticalGradient(
-                        colors = listOf(
-                            Color(0xFF1A472A),  // Darker green
-                            Color(0xFF2E8B57)   // Lighter green
-                        )
-                    )
-                )
+                .fillMaxSize()
+                .background(Color.Black)
         ) {
             Column(
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier
+                    .fillMaxSize()
+                    .verticalScroll(rememberScrollState())
             ) {
                 Image(
                     painter = painterResource(id = R.drawable.img516),
                     contentDescription = tournament.name,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(150.dp),
+                        .height(250.dp),
                     contentScale = ContentScale.Crop
                 )
 
@@ -66,12 +71,12 @@ fun TournamentCard(
                 ) {
                     Text(
                         text = tournament.name,
-                        fontSize = 18.sp,
+                        fontSize = 24.sp,
                         fontWeight = FontWeight.Bold,
                         color = Color.White
                     )
 
-                    Spacer(modifier = Modifier.height(8.dp))
+                    Spacer(modifier = Modifier.height(16.dp))
 
                     Row(
                         modifier = Modifier.fillMaxWidth(),
@@ -80,12 +85,12 @@ fun TournamentCard(
                         Column {
                             Text(
                                 text = "Entry Fee",
-                                fontSize = 12.sp,
+                                fontSize = 14.sp,
                                 color = Color.White.copy(alpha = 0.7f)
                             )
                             Text(
                                 text = if (tournament.entryFees > 0) "${tournament.entryFees} 🪙" else "Free",
-                                fontSize = 14.sp,
+                                fontSize = 18.sp,
                                 color = Color.White,
                                 fontWeight = FontWeight.Medium
                             )
@@ -94,33 +99,33 @@ fun TournamentCard(
                         Column(horizontalAlignment = Alignment.End) {
                             Text(
                                 text = "Prize Pool",
-                                fontSize = 12.sp,
+                                fontSize = 14.sp,
                                 color = Color.White.copy(alpha = 0.7f)
                             )
                             Text(
                                 text = "${tournament.prizeCoins.split(",")[0]} 🪙",
-                                fontSize = 14.sp,
+                                fontSize = 18.sp,
                                 color = Color.White,
                                 fontWeight = FontWeight.Medium
                             )
                         }
                     }
 
-                    Spacer(modifier = Modifier.height(12.dp))
+                    Spacer(modifier = Modifier.height(24.dp))
 
                     Text(
-                        text = "Registration",
-                        fontSize = 12.sp,
+                        text = "Registration Status",
+                        fontSize = 14.sp,
                         color = Color.White.copy(alpha = 0.7f)
                     )
                     Text(
                         text = "${tournament.registeredCount}/${tournament.totalCount}",
-                        fontSize = 14.sp,
+                        fontSize = 18.sp,
                         color = Color.White,
                         fontWeight = FontWeight.Medium
                     )
 
-                    Spacer(modifier = Modifier.height(12.dp))
+                    Spacer(modifier = Modifier.height(32.dp))
 
                     Button(
                         onClick = { /* Handle registration */ },
@@ -131,8 +136,10 @@ fun TournamentCard(
                         shape = RoundedCornerShape(8.dp)
                     ) {
                         Text(
-                            text = "Registration Open",
-                            color = Color.White
+                            text = "Register Now",
+                            color = Color.White,
+                            fontSize = 16.sp,
+                            modifier = Modifier.padding(vertical = 8.dp)
                         )
                     }
                 }
