@@ -28,7 +28,7 @@ fun TopBar() {
         modifier = Modifier
             .fillMaxWidth()
             .height(56.dp),
-        color = Color(0xFF121212)
+        color = Color.Black
     ) {
         Row(
             modifier = Modifier
@@ -53,7 +53,7 @@ fun TopBar() {
                     modifier = Modifier
                         .size(14.dp)
                         .offset(x = 2.dp, y = (-2).dp)
-                        .background(Color(0xFF4CAF50), CircleShape)
+                        .background(Color(0xFF126600), CircleShape)
                         .padding(3.dp)
                 ) {
                     Icon(
@@ -90,9 +90,17 @@ fun TopBar() {
                             )
                         )
                         Text(
+                            text = "|",
+                            style = TextStyle(
+                                color = Color(0xFF6ECF72),
+                                fontSize = 13.sp,
+                                fontWeight = FontWeight.Normal
+                            )
+                        )
+                        Text(
                             text = "🪙 2456",
                             style = TextStyle(
-                                color = Color(0xFFFFD700),
+                                color = Color.White,
                                 fontSize = 13.sp,
                                 fontWeight = FontWeight.Normal
                             )
