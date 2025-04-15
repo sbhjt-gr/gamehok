@@ -37,14 +37,33 @@ fun TopBar() {
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Image(
-                painter = painterResource(id = R.drawable.img11),
-                contentDescription = "Profile",
-                modifier = Modifier
-                    .size(36.dp)
-                    .clip(CircleShape),
-                contentScale = ContentScale.Crop
-            )
+            Box(
+                contentAlignment = Alignment.BottomEnd
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.img11),
+                    contentDescription = "Profile",
+                    modifier = Modifier
+                        .size(36.dp)
+                        .clip(CircleShape),
+                    contentScale = ContentScale.Crop
+                )
+                
+                Box(
+                    modifier = Modifier
+                        .size(14.dp)
+                        .offset(x = 2.dp, y = (-2).dp)
+                        .background(Color(0xFF4CAF50), CircleShape)
+                        .padding(3.dp)
+                ) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_menu),
+                        contentDescription = "Menu",
+                        tint = Color.White,
+                        modifier = Modifier.size(8.dp)
+                    )
+                }
+            }
 
             Row(
                 horizontalArrangement = Arrangement.spacedBy(16.dp),
