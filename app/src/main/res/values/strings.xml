@@ -1,3 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Gamehok Technologies</string>
+    <string name="app_name">GamehokTechnologies</string>
+    <string name="nav_home">Home</string>
+    <string name="nav_tournament">Tournament</string>
+    <string name="nav_chat">Chat</string>
+    <string name="nav_social">Social</string>
 </resources>
