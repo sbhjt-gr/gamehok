@@ -112,13 +112,26 @@ fun HomeScreen(
                     .fillMaxWidth()
                     .padding(horizontal = 16.dp)
             ) {
-                Text(
-                    text = "Play Tournament by Games",
-                    fontSize = 24.sp,
-                    fontWeight = FontWeight.Bold,
-                    color = Color.White,
-                    modifier = Modifier.padding(bottom = 14.dp)
-                )
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 14.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        text = "Play Tournament by Games",
+                        fontSize = 18.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = Color.White
+                    )
+                    Text(
+                        text = "View All",
+                        fontSize = 15.sp,
+                        color = Color(0xFF2ECC71), // Vibrant Green color
+                        modifier = Modifier.clickable { /* TODO: Handle View All click */ }
+                    )
+                }
                 
                 when (gamesUiState) {
                     is GamesUiState.Loading -> {
@@ -155,6 +168,14 @@ fun HomeScreen(
                         }
                     }
                 }
+                
+                Spacer(modifier = Modifier.height(16.dp))
+
+                Divider(
+                    color = Color.Gray, 
+                    thickness = 1.dp, 
+                    modifier = Modifier.padding(horizontal = 16.dp)
+                )
             }
 
             Spacer(modifier = Modifier.height(32.dp))
@@ -164,13 +185,26 @@ fun HomeScreen(
                     .fillMaxWidth()
                     .padding(horizontal = 16.dp)
             ) {
-                Text(
-                    text = "Compete in Battles",
-                    fontSize = 24.sp,
-                    fontWeight = FontWeight.Bold,
-                    color = Color.White,
-                    modifier = Modifier.padding(bottom = 14.dp)
-                )
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 14.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        text = "Compete in Battles",
+                        fontSize = 18.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = Color.White
+                    )
+                    Text(
+                        text = "View All",
+                        fontSize = 15.sp,
+                        color = Color(0xFF2ECC71), // Lighter Gray color
+                        modifier = Modifier.clickable { /* TODO: Handle View All click */ }
+                    )
+                }
                 
                 when (tournamentsUiState) {
                     is TournamentsUiState.Loading -> {
@@ -216,13 +250,26 @@ fun HomeScreen(
                     .fillMaxWidth()
                     .padding(horizontal = 16.dp)
             ) {
-                Text(
-                    text = "People to follow",
-                    fontSize = 24.sp,
-                    fontWeight = FontWeight.Bold,
-                    color = Color.White,
-                    modifier = Modifier.padding(bottom = 14.dp)
-                )
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 14.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        text = "People to follow",
+                        fontSize = 18.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = Color.White
+                    )
+                    Text(
+                        text = "View More",
+                        fontSize = 15.sp,
+                        color = Color(0xFF2ECC71), // Lighter Gray color
+                        modifier = Modifier.clickable { /* TODO: Handle View All click */ }
+                    )
+                }
 
                 PersonToFollow(name = "Legend Gamer", imageRes = R.drawable.img505)
                 PersonToFollow(name = "Legend Gamer", imageRes = R.drawable.img24)
