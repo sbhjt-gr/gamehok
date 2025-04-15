@@ -36,6 +36,7 @@ import com.gorai.gamehok.data.OrganizerDetails
 import com.gorai.gamehok.components.TournamentCard
 import com.gorai.gamehok.R
 import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
+import androidx.compose.foundation.layout.statusBarsPadding
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -54,7 +55,12 @@ fun GameDetailsScreen(
         Scaffold(
             topBar = {
                 TopAppBar(
-                    title = { Text(game.gameName, color = Color.White) },
+                    title = { 
+                        Text(
+                            game.gameName, 
+                            color = Color.White
+                        ) 
+                    },
                     navigationIcon = {
                         Box(
                             modifier = Modifier

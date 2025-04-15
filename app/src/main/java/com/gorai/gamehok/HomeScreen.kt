@@ -87,7 +87,7 @@ fun HomeScreen(
                             description = "Upgrade to premium membership and get 100 🎟️ and many other premium features."
                         )
                         1 -> PremiumCard(
-                            title = "Pro Gaming",
+                            title = "Pro Game",
                             description = "Access exclusive tournaments and compete with pro gamers worldwide."
                         )
                         2 -> PremiumCard(
@@ -400,14 +400,15 @@ fun PremiumCard(title: String, description: String) {
                     ) {
                         Text(
                             text = "Get Now",
-                            fontSize = 18.sp, 
-                            color = Color.White
+                            fontSize = 16.sp, 
+                            color = Color.White,
+                            fontWeight = FontWeight.Bold
                         )
                     }
                 }
-                
-                Spacer(modifier = Modifier.height(20.dp)) 
-                
+
+                Spacer(modifier = Modifier.height(20.dp))
+
                 Text(
                     text = description,
                     fontSize = 15.sp,

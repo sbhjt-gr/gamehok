@@ -45,6 +45,8 @@ import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.border
 import coil.compose.rememberAsyncImagePainter
+import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.foundation.layout.statusBarsPadding
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -54,10 +56,13 @@ fun TournamentDetailsScreen(
 ) {
     val selectedTabIndex = remember { mutableStateOf(0) }
     val tabs = listOf("Overview", "Players", "Rules")
+    val scrollState = rememberScrollState()
 
     BackHandler {
         onBackClick()
     }
+
+    val iconAlpha = if (scrollState.value == 0) 1f else 0f
 
     Box(modifier = Modifier.fillMaxSize()) {
         Scaffold(
@@ -67,6 +72,7 @@ fun TournamentDetailsScreen(
                     navigationIcon = {
                         Box(
                             modifier = Modifier
+                                .graphicsLayer { alpha = iconAlpha }
                                 .padding(13.dp)
                                 .background(Color(0x40808080), CircleShape)
                         ) {
@@ -82,6 +88,7 @@ fun TournamentDetailsScreen(
                     actions = {
                         Box(
                             modifier = Modifier
+                                .graphicsLayer { alpha = iconAlpha }
                                 .padding(13.dp)
                                 .background(Color.Black.copy(alpha = 0.4f), CircleShape)
                         ) {
@@ -112,7 +119,7 @@ fun TournamentDetailsScreen(
                     modifier = Modifier
                         .fillMaxSize()
                         .padding(bottom = 80.dp)
-                        .verticalScroll(rememberScrollState())
+                        .verticalScroll(scrollState)
                 ) {
                     Box(
                         modifier = Modifier
@@ -572,11 +579,14 @@ fun TournamentDetailsScreen(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .background(Color.Black)
-                                .padding(14.dp)
+                                .padding(14.dp),
+                            contentAlignment = Alignment.Center
                         ) {
                             Button(
                                 onClick = { /* Handle registration */ },
-                                modifier = Modifier.height(IntrinsicSize.Min),
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .height(IntrinsicSize.Min),
                                 colors = ButtonDefaults.buttonColors(
                                     containerColor = Color(0xFF23D600).copy(alpha = 0.5f)
                                 ),
@@ -586,7 +596,8 @@ fun TournamentDetailsScreen(
                                     text = "JOIN TOURNAMENT",
                                     color = Color.White,
                                     fontSize = 18.sp,
-                                    modifier = Modifier.padding(vertical = 8.dp)
+                                    modifier = Modifier.padding(vertical = 8.dp),
+                                    fontWeight = FontWeight.SemiBold
                                 )
                             }
                         }
