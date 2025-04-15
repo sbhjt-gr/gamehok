@@ -288,7 +288,7 @@ fun PremiumCard(title: String, description: String) {
         modifier = Modifier
             .fillMaxWidth(0.95f) 
             .padding(horizontal = 8.dp, vertical = 8.dp) 
-            .clip(RoundedCornerShape(24.dp)),
+            .clip(RoundedCornerShape(14.dp)),
         elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
     ) {
         Box(
@@ -345,12 +345,12 @@ fun PremiumCard(title: String, description: String) {
                     Button(
                         onClick = { /* Handle */ },
                         colors = ButtonDefaults.buttonColors(containerColor = PremiumGetNowButton),
-                        shape = RoundedCornerShape(24.dp),
+                        shape = RoundedCornerShape(12.dp),
                         contentPadding = PaddingValues(horizontal = 16.dp, vertical = 4.dp)
                     ) {
                         Text(
                             text = "Get Now",
-                            fontSize = 14.sp, 
+                            fontSize = 18.sp, 
                             color = Color.White
                         )
                     }
