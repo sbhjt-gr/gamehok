@@ -11,6 +11,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.gorai.gamehok.data.Game
 import com.gorai.gamehok.data.Tournament
 
 sealed class Screen {
@@ -19,6 +20,7 @@ sealed class Screen {
     object Social : Screen()
     object Chat : Screen()
     data class TournamentDetails(val tournament: Tournament) : Screen()
+    data class GameDetails(val game: Game) : Screen()
 }
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalAnimationApi::class)
@@ -32,8 +34,8 @@ fun MainScreen() {
         NavItem(R.string.nav_chat, R.drawable.ic_chat)
     )
 
-    val showBottomBar = currentScreen !is Screen.TournamentDetails
-    val showTopBar = currentScreen !is Screen.TournamentDetails
+    val showBottomBar = currentScreen !is Screen.TournamentDetails && currentScreen !is Screen.GameDetails
+    val showTopBar = currentScreen !is Screen.TournamentDetails && currentScreen !is Screen.GameDetails
 
     Scaffold(
         topBar = { 
@@ -62,6 +64,7 @@ fun MainScreen() {
                                 Screen.Social -> index == 2
                                 Screen.Chat -> index == 3
                                 is Screen.TournamentDetails -> false
+                                is Screen.GameDetails -> false
                             },
                             onClick = {
                                 currentScreen = when (index) {
@@ -93,7 +96,7 @@ fun MainScreen() {
             AnimatedContent(
                 targetState = currentScreen,
                 transitionSpec = {
-                    if (targetState is Screen.TournamentDetails) {
+                    if (targetState is Screen.TournamentDetails || targetState is Screen.GameDetails) {
                         slideInHorizontally(
                             initialOffsetX = { fullWidth -> fullWidth }, // start from right
                             animationSpec = tween(300)
@@ -118,6 +121,9 @@ fun MainScreen() {
                     Screen.Home -> HomeScreen(
                         onTournamentClick = { tournament ->
                             currentScreen = Screen.TournamentDetails(tournament)
+                        },
+                        onGameClick = { game ->
+                            currentScreen = Screen.GameDetails(game)
                         }
                     )
                     Screen.TournamentList -> TournamentScreen()
@@ -127,6 +133,15 @@ fun MainScreen() {
                         val tournament = (screen as Screen.TournamentDetails).tournament
                         TournamentDetailsScreen(
                             tournament = tournament,
+                            onBackClick = {
+                                currentScreen = Screen.Home
+                            }
+                        )
+                    }
+                    is Screen.GameDetails -> {
+                        val game = (screen as Screen.GameDetails).game
+                        GameDetailsScreen(
+                            game = game,
                             onBackClick = {
                                 currentScreen = Screen.Home
                             }

@@ -40,6 +40,7 @@ import androidx.compose.ui.res.painterResource
 import com.gorai.gamehok.R
 import com.gorai.gamehok.data.Tournament
 import kotlinx.coroutines.delay
+import com.gorai.gamehok.data.Game
 
 private val GoldenStart = Color(0xFFFFD700)
 private val GoldenEnd = Color(0xFFB8860B)
@@ -47,7 +48,8 @@ private val GoldenEnd = Color(0xFFB8860B)
 @Composable
 fun HomeScreen(
     viewModel: HomeViewModel = viewModel(),
-    onTournamentClick: (Tournament) -> Unit = {}
+    onTournamentClick: (Tournament) -> Unit = {},
+    onGameClick: (Game) -> Unit = {}
 ) {
     val gamesUiState by viewModel.gamesUiState.collectAsState()
     val tournamentsUiState by viewModel.tournamentsUiState.collectAsState()
@@ -160,9 +162,10 @@ fun HomeScreen(
                         ) {
                             items((gamesUiState as GamesUiState.Success).games) { game -> 
                                 GameCard(
-                                    imageRes = game.imagePath.toInt(),
+                                    imageRes = game.imagePath.toIntOrNull() ?: R.drawable.img501,
                                     name = game.gameName,
-                                    modifier = Modifier.width(120.dp)
+                                    modifier = Modifier.width(120.dp),
+                                    onClick = { onGameClick(game) }
                                 )
                             }
                         }
@@ -267,7 +270,7 @@ fun HomeScreen(
                         text = "View More",
                         fontSize = 15.sp,
                         color = Color(0xFF2ECC71), // Lighter Gray color
-                        modifier = Modifier.clickable { /* TODO: Handle View All click */ }
+                        modifier = Modifier.clickable { /* TODO */ }
                     )
                 }
 
@@ -313,7 +316,7 @@ private fun PersonToFollow(
         }
 
         Button(
-            onClick = { /* Handle follow click */ },
+            onClick = { /* Handle */ },
             colors = ButtonDefaults.buttonColors(
                 containerColor = Color(0xFF044D2C)
             ),
