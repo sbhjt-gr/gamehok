@@ -31,14 +31,35 @@ class MainActivity : ComponentActivity() {
             MaterialTheme(
                 colorScheme = darkColorScheme().copy(
                     primary = Color(0xFF00FF00),
-                    primaryContainer = Color(0xFF002200)
+                    primaryContainer = Color(0xFF002200),
+                    background = Color.Black,
+                    surface = Color(0xFF101010), 
+                    onBackground = Color(0xFF00FF00),
+                    onSurface = Color(0xFF00FF00)
                 )
             ) {
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
+                Box(
+                    modifier = Modifier.fillMaxSize()
                 ) {
-                    MainScreen()
+                    androidx.compose.foundation.Canvas(modifier = Modifier.matchParentSize()) {
+                        drawRect(
+                            brush = androidx.compose.ui.graphics.Brush.verticalGradient(
+                                colors = listOf(
+                                    Color.Transparent,
+                                    Color(0x8000FF00)
+                                ),
+                                startY = 0f,
+                                endY = size.height
+                            ),
+                            size = size
+                        )
+                    }
+                    Surface(
+                        modifier = Modifier.fillMaxSize(),
+                        color = Color.Transparent
+                    ) {
+                        MainScreen()
+                    }
                 }
             }
         }
@@ -59,7 +80,7 @@ fun MainScreen() {
     Scaffold(
         bottomBar = {
             NavigationBar(
-                containerColor = MaterialTheme.colorScheme.surface,
+                containerColor = Color.Black,
                 tonalElevation = 8.dp
             ) {
                 items.forEachIndexed { index, item ->
