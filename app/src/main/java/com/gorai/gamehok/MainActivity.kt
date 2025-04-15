@@ -12,6 +12,7 @@ import androidx.compose.material3.darkColorScheme
 import com.gorai.gamehok.MainScreen
 import androidx.compose.foundation.Canvas
 import androidx.compose.ui.graphics.Brush
+import com.gorai.gamehok.ui.theme.AppTypography
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,7 +26,8 @@ class MainActivity : ComponentActivity() {
                     surface = Color(0xFF101010), 
                     onBackground = Color(0xFF00FF00),
                     onSurface = Color(0xFF00FF00)
-                )
+                ),
+                typography = AppTypography
             ) {
                 Box(
                     modifier = Modifier.fillMaxSize()
