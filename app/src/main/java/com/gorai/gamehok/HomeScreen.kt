@@ -19,24 +19,70 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.google.accompanist.pager.ExperimentalPagerApi
+import com.google.accompanist.pager.HorizontalPager
+import com.google.accompanist.pager.HorizontalPagerIndicator
+import com.google.accompanist.pager.rememberPagerState
 import com.gorai.gamehok.ui.theme.*
+import androidx.compose.ui.geometry.Offset
 
 private val GoldenStart = Color(0xFFFFD700)
 private val GoldenEnd = Color(0xFFB8860B)
 
+@OptIn(ExperimentalPagerApi::class)
 @Composable
 fun HomeScreen() {
     Box(modifier = Modifier.fillMaxSize()) {
-        PremiumCard()
+        Column(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            val pagerState = rememberPagerState()
+
+            HorizontalPager(
+                count = 3,
+                state = pagerState,
+                modifier = Modifier.fillMaxWidth()
+            ) { page ->
+                Box(
+                    modifier = Modifier.fillMaxWidth(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    when (page) {
+                        0 -> PremiumCard(
+                            title = "Gamehok",
+                            description = "Upgrade to premium membership and get 100 🎟️ and many other premium features."
+                        )
+                        1 -> PremiumCard(
+                            title = "Pro Gaming",
+                            description = "Access exclusive tournaments and compete with pro gamers worldwide."
+                        )
+                        2 -> PremiumCard(
+                            title = "Elite Pass",
+                            description = "Get exclusive in-game items and early access to new features."
+                        )
+                    }
+                }
+            }
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            HorizontalPagerIndicator(
+                pagerState = pagerState,
+                modifier = Modifier.padding(16.dp),
+                activeColor = Color.White,
+                inactiveColor = Color.White.copy(alpha = 0.5f)
+            )
+        }
     }
 }
-@Preview(showBackground = true)
+
 @Composable
-fun PremiumCard() {
+fun PremiumCard(title: String, description: String) {
     Card(
         modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp)
+            .fillMaxWidth(0.95f)
+            .padding(horizontal = 8.dp, vertical = 8.dp)
             .clip(RoundedCornerShape(24.dp)),
         elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
     ) {
@@ -49,11 +95,11 @@ fun PremiumCard() {
                             0.5f to CardBackgroundMiddle,
                             1.0f to CardBackgroundEnd
                         ),
-                        start = androidx.compose.ui.geometry.Offset(0f, 0f),
-                        end = androidx.compose.ui.geometry.Offset(Float.POSITIVE_INFINITY, Float.POSITIVE_INFINITY)
+                        start = Offset(0f, 0f),
+                        end = Offset(Float.POSITIVE_INFINITY, Float.POSITIVE_INFINITY)
                     )
                 )
-                .padding(24.dp)
+                .padding(20.dp)
         ) {
             Column {
                 Row(
@@ -66,8 +112,8 @@ fun PremiumCard() {
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Text(
-                            text = "Gamehok",
-                            fontSize = 28.sp,
+                            text = title,
+                            fontSize = 24.sp,
                             fontWeight = FontWeight.Bold,
                             color = PremiumTextColor
                         )
@@ -76,8 +122,8 @@ fun PremiumCard() {
                                 .background(
                                     brush = Brush.linearGradient(
                                         colors = listOf(GoldenStart, GoldenEnd),
-                                        start = androidx.compose.ui.geometry.Offset(0f, 0f),
-                                        end = androidx.compose.ui.geometry.Offset(Float.POSITIVE_INFINITY, 0f)
+                                        start = Offset(0f, 0f),
+                                        end = Offset(Float.POSITIVE_INFINITY, 0f)
                                     ),
                                     shape = RoundedCornerShape(16.dp)
                                 )
@@ -85,43 +131,42 @@ fun PremiumCard() {
                         ) {
                             Text(
                                 text = "Premium",
-                                fontSize = 16.sp,
+                                fontSize = 14.sp,
                                 color = Color.White
                             )
                         }
                     }
 
                     Button(
-                        onClick = { /* Handle get now click */ },
+                        onClick = { /* Handle */ },
                         colors = ButtonDefaults.buttonColors(containerColor = PremiumGetNowButton),
                         shape = RoundedCornerShape(24.dp),
                         contentPadding = PaddingValues(horizontal = 16.dp, vertical = 4.dp)
                     ) {
                         Text(
                             text = "Get Now",
-                            fontSize = 16.sp,
+                            fontSize = 14.sp,
                             color = Color.White
                         )
                     }
                 }
 
-                Spacer(modifier = Modifier.height(24.dp))
+                Spacer(modifier = Modifier.height(20.dp))
 
                 Text(
-                    text = "Upgrade to premium membership and get 100 and many other premium features.",
-                    fontSize = 17.sp,
+                    text = description,
+                    fontSize = 15.sp,
                     color = Color.Black,
                     fontWeight = FontWeight.SemiBold
                 )
 
-                Spacer(modifier = Modifier.height(12.dp))
+                Spacer(modifier = Modifier.height(10.dp))
 
                 Text(
                     text = "View All Features ›",
                     color = PremiumFeatureLink,
-                    fontSize = 16.sp,
+                    fontSize = 14.sp,
                     fontWeight = FontWeight.SemiBold
-
                 )
             }
         }

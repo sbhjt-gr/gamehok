@@ -51,6 +51,8 @@ dependencies {
     implementation("androidx.compose.material3:material3-window-size-class:1.2.1")
     implementation("androidx.compose.ui:ui-tooling-preview:1.6.7")
     implementation(libs.androidx.material3.android)
+    implementation("com.google.accompanist:accompanist-pager:0.32.0")
+    implementation("com.google.accompanist:accompanist-pager-indicators:0.32.0")
     debugImplementation("androidx.compose.ui:ui-tooling:1.6.7")
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
