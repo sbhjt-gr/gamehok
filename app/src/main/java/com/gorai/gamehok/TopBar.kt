@@ -19,9 +19,11 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
+@Preview(showBackground = true)
 @Composable
 fun TopBar() {
     Surface(
@@ -94,7 +96,7 @@ fun TopBar() {
                             style = TextStyle(
                                 color = Color(0xFF6ECF72),
                                 fontSize = 13.sp,
-                                fontWeight = FontWeight.Normal
+                                fontWeight = FontWeight.Bold
                             )
                         )
                         Text(
