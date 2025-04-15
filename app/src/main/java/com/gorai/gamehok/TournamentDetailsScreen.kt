@@ -114,14 +114,58 @@ fun TournamentDetailsScreen(
                         .padding(bottom = 80.dp)
                         .verticalScroll(rememberScrollState())
                 ) {
-                    Image(
-                        painter = painterResource(id = R.drawable.img516),
-                        contentDescription = tournament.name,
+                    Box(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .height(250.dp),
-                        contentScale = ContentScale.Crop
-                    )
+                    ) {
+                        Image(
+                            painter = painterResource(id = R.drawable.img516),
+                            contentDescription = tournament.name,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(250.dp),
+                            contentScale = ContentScale.Crop
+                        )
+                        
+                        Box(
+                            modifier = Modifier
+                                .align(Alignment.BottomStart)
+                                .padding(start = 16.dp, bottom = 16.dp)
+                                .background(Color.Black.copy(alpha = 0.6f), RoundedCornerShape(20.dp))
+                                .padding(horizontal = 12.dp, vertical = 6.dp)
+                        ) {
+                            Text(
+                                text = "Registration Closes in 2d 15h 10m",
+                                color = Color.White,
+                                fontSize = 12.sp,
+                                fontWeight = FontWeight.Medium
+                            )
+                        }
+                        
+                        Box(
+                            modifier = Modifier
+                                .align(Alignment.BottomEnd)
+                                .padding(end = 16.dp, bottom = 16.dp)
+                                .background(Color.Black.copy(alpha = 0.6f), RoundedCornerShape(20.dp))
+                                .padding(horizontal = 12.dp, vertical = 6.dp)
+                        ) {
+                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                Image(
+                                    painter = painterResource(id = R.drawable.ic_social),
+                                    contentDescription = "Participants",
+                                    modifier = Modifier.size(14.dp),
+                                    colorFilter = androidx.compose.ui.graphics.ColorFilter.tint(Color.White)
+                                )
+                                Spacer(modifier = Modifier.width(6.dp))
+                                Text(
+                                    text = "${tournament.registeredCount}/${tournament.totalCount}",
+                                    color = Color.White,
+                                    fontSize = 12.sp,
+                                    fontWeight = FontWeight.Medium
+                                )
+                            }
+                        }
+                    }
 
                     Row(
                         modifier = Modifier
@@ -532,7 +576,7 @@ fun TournamentDetailsScreen(
                         ) {
                             Button(
                                 onClick = { /* Handle registration */ },
-                                modifier = Modifier.fillMaxWidth(),
+                                modifier = Modifier.height(IntrinsicSize.Min),
                                 colors = ButtonDefaults.buttonColors(
                                     containerColor = Color(0xFF23D600).copy(alpha = 0.5f)
                                 ),
