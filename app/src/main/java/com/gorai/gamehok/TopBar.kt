@@ -5,6 +5,9 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Notifications
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -31,7 +34,7 @@ fun TopBar() {
             modifier = Modifier
                 .fillMaxSize()
                 .padding(horizontal = 16.dp),
-            horizontalArrangement = Arrangement.SpaceBetween, // Changed to SpaceBetween
+            horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
             Image(
@@ -43,35 +46,47 @@ fun TopBar() {
                 contentScale = ContentScale.Crop
             )
 
-            Box(
-                modifier = Modifier
-                    .background(
-                        color = Color(0xFF4CAF50),
-                        shape = RoundedCornerShape(16.dp)
-                    )
-                    .padding(horizontal = 12.dp, vertical = 6.dp),
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(16.dp),
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                Row(
-                    horizontalArrangement = Arrangement.spacedBy(4.dp),
-                    verticalAlignment = Alignment.CenterVertically
+                Box(
+                    modifier = Modifier
+                        .background(
+                            color = Color(0xFF4CAF50),
+                            shape = RoundedCornerShape(16.dp)
+                        )
+                        .padding(horizontal = 12.dp, vertical = 6.dp),
                 ) {
-                    Text(
-                        text = "🎟️ 245",
-                        style = TextStyle(
-                            color = Color.White,
-                            fontSize = 13.sp,
-                            fontWeight = FontWeight.Normal
+                    Row(
+                        horizontalArrangement = Arrangement.spacedBy(4.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            text = "🎟️ 245",
+                            style = TextStyle(
+                                color = Color.White,
+                                fontSize = 13.sp,
+                                fontWeight = FontWeight.Normal
+                            )
                         )
-                    )
-                    Text(
-                        text = "🪙 2456",
-                        style = TextStyle(
-                            color = Color(0xFFFFD700),
-                            fontSize = 13.sp,
-                            fontWeight = FontWeight.Normal
+                        Text(
+                            text = "🪙 2456",
+                            style = TextStyle(
+                                color = Color(0xFFFFD700),
+                                fontSize = 13.sp,
+                                fontWeight = FontWeight.Normal
+                            )
                         )
-                    )
+                    }
                 }
+
+                Icon(
+                    imageVector = Icons.Outlined.Notifications,
+                    contentDescription = "Notifications",
+                    tint = Color.White,
+                    modifier = Modifier.size(24.dp)
+                )
             }
         }
     }
