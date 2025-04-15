@@ -10,6 +10,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
 import com.gorai.gamehok.MainScreen
+import androidx.compose.foundation.Canvas
+import androidx.compose.ui.graphics.Brush
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,9 +30,9 @@ class MainActivity : ComponentActivity() {
                 Box(
                     modifier = Modifier.fillMaxSize()
                 ) {
-                    androidx.compose.foundation.Canvas(modifier = Modifier.matchParentSize()) {
+                    Canvas(modifier = Modifier.matchParentSize()) {
                         drawRect(
-                            brush = androidx.compose.ui.graphics.Brush.verticalGradient(
+                            brush = Brush.verticalGradient(
                                 colors = listOf(
                                     Color.Transparent,
                                     Color(0x8000FF00)
