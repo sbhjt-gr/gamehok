@@ -1,5 +1,6 @@
 package com.gorai.gamehok
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -25,6 +26,9 @@ import com.google.accompanist.pager.HorizontalPagerIndicator
 import com.google.accompanist.pager.rememberPagerState
 import com.gorai.gamehok.ui.theme.*
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.layout.ContentScale
+import com.gorai.gamehok.components.GameCard
 
 private val GoldenStart = Color(0xFFFFD700)
 private val GoldenEnd = Color(0xFFB8860B)
@@ -38,7 +42,7 @@ fun HomeScreen() {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             val pagerState = rememberPagerState()
-
+            
             HorizontalPager(
                 count = 3,
                 state = pagerState,
@@ -64,15 +68,54 @@ fun HomeScreen() {
                     }
                 }
             }
-
+            
             Spacer(modifier = Modifier.height(16.dp))
-
+            
             HorizontalPagerIndicator(
                 pagerState = pagerState,
                 modifier = Modifier.padding(16.dp),
                 activeColor = Color.White,
                 inactiveColor = Color.White.copy(alpha = 0.5f)
             )
+
+            Spacer(modifier = Modifier.height(24.dp))
+
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp)
+            ) {
+                Text(
+                    text = "Play Tournament by Games",
+                    fontSize = 24.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color.White,
+                    modifier = Modifier.padding(bottom = 16.dp)
+                )
+                
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    GameCard(
+                        imageRes = R.drawable.img516,
+                        name = "PUBG",
+                        modifier = Modifier.weight(1f)
+                    )
+                    Spacer(modifier = Modifier.width(8.dp))
+                    GameCard(
+                        imageRes = R.drawable.img28,
+                        name = "Call of Duty",
+                        modifier = Modifier.weight(1f)
+                    )
+                    Spacer(modifier = Modifier.width(8.dp))
+                    GameCard(
+                        imageRes = R.drawable.img528,
+                        name = "Counter Strike",
+                        modifier = Modifier.weight(1f)
+                    )
+                }
+            }
         }
     }
 }
@@ -81,8 +124,8 @@ fun HomeScreen() {
 fun PremiumCard(title: String, description: String) {
     Card(
         modifier = Modifier
-            .fillMaxWidth(0.95f)
-            .padding(horizontal = 8.dp, vertical = 8.dp)
+            .fillMaxWidth(0.95f) 
+            .padding(horizontal = 8.dp, vertical = 8.dp) 
             .clip(RoundedCornerShape(24.dp)),
         elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
     ) {
@@ -113,7 +156,7 @@ fun PremiumCard(title: String, description: String) {
                     ) {
                         Text(
                             text = title,
-                            fontSize = 24.sp,
+                            fontSize = 24.sp, 
                             fontWeight = FontWeight.Bold,
                             color = PremiumTextColor
                         )
@@ -131,12 +174,12 @@ fun PremiumCard(title: String, description: String) {
                         ) {
                             Text(
                                 text = "Premium",
-                                fontSize = 14.sp,
+                                fontSize = 14.sp, 
                                 color = Color.White
                             )
                         }
                     }
-
+                    
                     Button(
                         onClick = { /* Handle */ },
                         colors = ButtonDefaults.buttonColors(containerColor = PremiumGetNowButton),
@@ -145,27 +188,27 @@ fun PremiumCard(title: String, description: String) {
                     ) {
                         Text(
                             text = "Get Now",
-                            fontSize = 14.sp,
+                            fontSize = 14.sp, 
                             color = Color.White
                         )
                     }
                 }
-
-                Spacer(modifier = Modifier.height(20.dp))
-
+                
+                Spacer(modifier = Modifier.height(20.dp)) 
+                
                 Text(
                     text = description,
                     fontSize = 15.sp,
                     color = Color.Black,
                     fontWeight = FontWeight.SemiBold
                 )
-
-                Spacer(modifier = Modifier.height(10.dp))
-
+                
+                Spacer(modifier = Modifier.height(10.dp)) 
+                
                 Text(
                     text = "View All Features ›",
                     color = PremiumFeatureLink,
-                    fontSize = 14.sp,
+                    fontSize = 14.sp, 
                     fontWeight = FontWeight.SemiBold
                 )
             }

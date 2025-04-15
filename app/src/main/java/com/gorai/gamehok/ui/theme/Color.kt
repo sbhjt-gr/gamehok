@@ -2,7 +2,6 @@ package com.gorai.gamehok.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-// Premium card gradient colors
 val CardBackgroundStart = Color(0xFFFFF8DC)  // Light cream
 val CardBackgroundMiddle = Color(0xFFFFE5B4)  // Peach
 val CardBackgroundEnd = Color(0xFFFFDAB9)    // Darker peach

@@ -10,6 +10,6 @@ import androidx.compose.ui.res.stringResource
 @Composable
 fun TournamentScreen() {
     Box(modifier = Modifier.fillMaxSize()) {
-        Text(stringResource(R.string.nav_tournament))
+        Text(text = stringResource(R.string.nav_tournament))
     }
 }
