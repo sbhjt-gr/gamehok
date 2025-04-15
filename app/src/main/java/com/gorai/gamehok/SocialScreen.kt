@@ -10,6 +10,6 @@ import androidx.compose.ui.res.stringResource
 @Composable
 fun SocialScreen() {
     Box(modifier = Modifier.fillMaxSize()) {
-        Text(stringResource(R.string.nav_social))
+        // Text(stringResource(R.string.nav_social))
     }
 }

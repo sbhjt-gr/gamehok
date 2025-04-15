@@ -10,6 +10,6 @@ import androidx.compose.ui.res.stringResource
 @Composable
 fun ChatScreen() {
     Box(modifier = Modifier.fillMaxSize()) {
-        Text(stringResource(R.string.nav_chat))
+        // Text(stringResource(R.string.nav_chat))
     }
 }

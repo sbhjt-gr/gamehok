@@ -4,43 +4,51 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.HorizontalPagerIndicator
 import com.google.accompanist.pager.rememberPagerState
 import com.gorai.gamehok.ui.theme.*
 import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.layout.ContentScale
 import com.gorai.gamehok.components.GameCard
+import com.gorai.gamehok.viewmodel.GamesUiState
+import com.gorai.gamehok.viewmodel.HomeViewModel
+import com.gorai.gamehok.components.TournamentCard
+import com.gorai.gamehok.viewmodel.TournamentsUiState
 
 private val GoldenStart = Color(0xFFFFD700)
 private val GoldenEnd = Color(0xFFB8860B)
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
-fun HomeScreen() {
+fun HomeScreen(
+    viewModel: HomeViewModel = viewModel()
+) {
+    val gamesUiState by viewModel.gamesUiState.collectAsState()
+    val tournamentsUiState by viewModel.tournamentsUiState.collectAsState()
+
     Box(modifier = Modifier.fillMaxSize()) {
         Column(
             modifier = Modifier.fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            // Premium cards section remains unchanged
             val pagerState = rememberPagerState()
             
             HorizontalPager(
@@ -90,30 +98,92 @@ fun HomeScreen() {
                     fontSize = 24.sp,
                     fontWeight = FontWeight.Bold,
                     color = Color.White,
-                    modifier = Modifier.padding(bottom = 16.dp)
+                    modifier = Modifier.padding(bottom = 14.dp)
                 )
                 
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-                    GameCard(
-                        imageRes = R.drawable.img516,
-                        name = "PUBG",
-                        modifier = Modifier.weight(1f)
-                    )
-                    Spacer(modifier = Modifier.width(8.dp))
-                    GameCard(
-                        imageRes = R.drawable.img28,
-                        name = "Call of Duty",
-                        modifier = Modifier.weight(1f)
-                    )
-                    Spacer(modifier = Modifier.width(8.dp))
-                    GameCard(
-                        imageRes = R.drawable.img528,
-                        name = "Counter Strike",
-                        modifier = Modifier.weight(1f)
-                    )
+                when (gamesUiState) {
+                    is GamesUiState.Loading -> {
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(150.dp),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            CircularProgressIndicator(
+                                color = Color.White,
+                                modifier = Modifier.size(40.dp)
+                            )
+                        }
+                    }
+                    is GamesUiState.Error -> {
+                        Text(
+                            text = (gamesUiState as GamesUiState.Error).message,
+                            color = Color.Red,
+                            modifier = Modifier.padding(16.dp)
+                        )
+                    }
+                    is GamesUiState.Success -> {
+                        LazyRow(
+                            horizontalArrangement = Arrangement.spacedBy(8.dp)
+                        ) {
+                            items((gamesUiState as GamesUiState.Success).games) { game ->
+                                GameCard(
+                                    imageRes = game.imagePath.toInt(),
+                                    name = game.gameName,
+                                    modifier = Modifier.width(120.dp)
+                                )
+                            }
+                        }
+                    }
+                }
+            }
+
+            Spacer(modifier = Modifier.height(32.dp))
+
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp)
+            ) {
+                Text(
+                    text = "Compete in Battles",
+                    fontSize = 24.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color.White,
+                    modifier = Modifier.padding(bottom = 14.dp)
+                )
+                
+                when (tournamentsUiState) {
+                    is TournamentsUiState.Loading -> {
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(200.dp),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            CircularProgressIndicator(
+                                color = Color.White,
+                                modifier = Modifier.size(48.dp)
+                            )
+                        }
+                    }
+                    is TournamentsUiState.Error -> {
+                        Text(
+                            text = (tournamentsUiState as TournamentsUiState.Error).message,
+                            color = Color.Red,
+                            modifier = Modifier.padding(16.dp)
+                        )
+                    }
+                    is TournamentsUiState.Success -> {
+                        LazyRow(
+                            horizontalArrangement = Arrangement.spacedBy(16.dp),
+                            contentPadding = PaddingValues(horizontal = 4.dp)
+                        ) {
+                            items((tournamentsUiState as TournamentsUiState.Success).tournaments) { tournament ->
+                                TournamentCard(tournament = tournament)
+                            }
+                        }
+                    }
                 }
             }
         }
