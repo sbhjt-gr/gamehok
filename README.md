@@ -37,7 +37,7 @@ Gamehok is an Android application designed for gamers, providing details about g
 2.  **Clone the repository:**
     ```bash
     git clone https://github.com/sbhjt-gr/gamehok
-    cd gamehok-android-app # Or your project's directory name
+    cd gamehok
     ```
 3.  **Open in Android Studio:**
     *   Launch Android Studio.
