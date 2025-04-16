@@ -7,7 +7,6 @@ Gamehok is an Android application designed for gamers, providing details about g
 *   **Game Details:** View comprehensive information about various games, including genre, platform, release date, and developer.
 *   **Tournaments:** Browse upcoming and ongoing tournaments for different games (Implementation pending).
 *   **Leaderboards:** Check player rankings and scores within specific games or overall (Implementation pending for dedicated tab, basic leaderboard shown in Overview).
-*   **Modern UI:** Built with Jetpack Compose for a clean and interactive user experience.
 
 ## 📸 Screenshots
 
