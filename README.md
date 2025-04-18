@@ -23,10 +23,6 @@ Gamehok is an Android application designed for gamers, providing details about g
 *   **Language:** Kotlin
 *   **UI Toolkit:** Jetpack Compose
 *   **Platform:** Android
-*   **Architecture:** (Specify architecture, e.g., MVVM, MVI - if applicable)
-*   **Libraries:**
-    *   Material 3 Components
-    *   (Add other major libraries used, e.g., Navigation Component, Retrofit, Room, etc.)
 
 ## 🛠️ Setup & Installation
 
