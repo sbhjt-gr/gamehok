@@ -42,13 +42,6 @@ Gamehok is an Android application designed for gamers, providing details about g
     *   Wait for Gradle sync to complete.
     *   Click `Build > Make Project` or use the Run button (▶️) to build and install on an emulator or physical device.
 
-## 🏗️ Project Structure
-
-*   `.../components`: Reusable UI components.
-*   `.../data`: Data models (like `Game`, `Tournament`) and potentially data sources.
-*   `.../ui`: Screens or Composables representing different parts of the UI (like `GameDetailsScreen`).
-*   `.../viewmodel`: (If using MVVM) ViewModels for managing UI-related data.
-
 ## 🤝 Contributing
 
 Contributions are welcome! Please follow these steps:
