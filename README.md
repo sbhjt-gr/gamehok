@@ -2,13 +2,13 @@
 
 Gamehok is an Android application designed for gamers, providing details about games, tournaments, and leaderboards.
 
-## ✨ Features
+## Features
 
 *   **Game Details:** View comprehensive information about various games, including genre, platform, release date, and developer.
 *   **Tournaments:** Browse upcoming and ongoing tournaments for different games (Implementation pending).
 *   **Leaderboards:** Check player rankings and scores within specific games or overall (Implementation pending for dedicated tab, basic leaderboard shown in Overview).
 
-## 📸 Screenshots
+## Screenshots
 
 <img src="https://github.com/user-attachments/assets/97f92beb-97ff-40c7-94ce-ac6b6a1df988" alt="Screenshot 1" width="200"/>
 <img src="https://github.com/user-attachments/assets/71b89d5f-fdd6-4c16-b86f-533cebdc5b6d" alt="Screenshot 2" width="200"/>
@@ -18,13 +18,13 @@ Gamehok is an Android application designed for gamers, providing details about g
 <img src="https://github.com/user-attachments/assets/6dfb3130-dd00-465f-9d0e-707493710e56" alt="Screenshot 6" width="200"/>
 <img src="https://github.com/user-attachments/assets/f5af50c1-d2c2-4a9b-8c29-3efad342caf7" alt="Screenshot 7" width="200"/>
 
-## 🚀 Tech Stack
+## Tech Stack
 
 *   **Language:** Kotlin
 *   **UI Toolkit:** Jetpack Compose
 *   **Platform:** Android
 
-## 🛠️ Setup & Installation
+## Setup & Installation
 
 1.  **Prerequisites:**
     *   Android Studio (Latest stable version recommended)
@@ -40,9 +40,9 @@ Gamehok is an Android application designed for gamers, providing details about g
     *   Navigate to and select the cloned project directory.
 4.  **Build the project:**
     *   Wait for Gradle sync to complete.
-    *   Click `Build > Make Project` or use the Run button (▶️) to build and install on an emulator or physical device.
+    *   Click `Build > Make Project` or use the Run button to build and install on an emulator or physical device.
 
-## 🤝 Contributing
+## Contributing
 
 Contributions are welcome! Please follow these steps:
 
@@ -54,7 +54,7 @@ Contributions are welcome! Please follow these steps:
 6.  Open a Pull Request.
 
 
-## 📄 License
+## License
 
 
 ```
